@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Install dependencies
         run: |
-          sudo apt install python-numpy python-scipy
+          sudo apt install python3-numpy python3-scipy
       - name: Setup Julia
         uses: julia-actions/setup-julia@v1
         with:
