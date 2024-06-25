@@ -6,7 +6,7 @@ import QHull as QH
 import SpecialFunctions as SF
 import Statistics as S
 
-export equivalent_radius, sphericity, convexity, elongation
+export equivalent_radius, sphericity, convexity, elongation, covariance_matrix
 
 include("characteristics.jl")
 

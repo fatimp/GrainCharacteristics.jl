@@ -71,7 +71,7 @@ function col_means(array :: AbstractMatrix)
     end
 end
 
-function elongation(grain :: AbstractArray{Bool})
+function covariance_matrix(grain :: AbstractArray{Bool})
     points = array_of_points(grain)
     m = col_means(points)
     dim = ndims(grain)
@@ -82,12 +82,22 @@ function elongation(grain :: AbstractArray{Bool})
         end
     end
 
-    # Construct symmetric matrix to indicate that the returned value
-    # has a type Float64 (otherwise it is a union of Float64 and
-    # Complex{Float64}).
+    # Construct symmetric matrix to indicate that all eigenvalues are
+    # real.
     sym = LA.Symmetric(mat)
     @assert sym ≈ mat
-    eig = LA.eigvals(sym)
+    return sym
+end
+
+"""
+    elongation(grain)
+
+Return elongation of the grain. A possible value of elongation is in
+the range [0, 1].
+"""
+function elongation(grain :: AbstractArray{Bool})
+    m = covariance_matrix(grain)
+    eig = LA.eigvals(m)
     @assert all(x -> x > 0, eig)
     return sqrt(eig[begin]/eig[end])
 end
