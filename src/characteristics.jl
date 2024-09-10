@@ -55,7 +55,7 @@ information look at `CorrelationFunctions.jl` library.
 This function is also defined for other dimensions.
 """
 function sphericity(grain :: AbstractArray{Bool}; kernel = U.ConvKernel(5))
-    edge = U.extract_edges(grain, kernel, U.Torus())
+    edge = U.extract_edges(grain, kernel, U.Periodic())
     surf = sum(edge)
     vol  = sum(grain)
     n    = ndims(grain)
